@@ -1,0 +1,21 @@
+public static int binarySearch(int[] searching, int value) {
+		boolean notFound = false;
+		int min = 0;
+		int max = searching.length;
+
+		while (!notFound) {
+
+			if (value == searching[(min + max) / 2]) {
+				return (min + max) / 2;
+			} else if (value > searching[(min + max) / 2]) {
+				min += (max - min) / 2;
+			} else if (value < searching[(min + max) / 2]) {
+				max -= (max - min) / 2;
+			}
+
+			if (max == 1 || min == searching.length - 1 || max - min == 1) {
+				notFound = true;
+			}
+		}
+		return -1;
+	}

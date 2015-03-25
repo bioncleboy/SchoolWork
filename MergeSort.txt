@@ -1,0 +1,56 @@
+public static int[] mergeSort(int[] unsorted) {
+		if (unsorted.length <= 1) {
+			return unsorted;
+		} else {
+			int mid = unsorted.length / 2;
+			int[] firstHalf = new int[mid];
+			int[] secondHalf = new int[unsorted.length - mid];
+
+			for (int i = 0; i < mid; i++) {
+				firstHalf[i] = unsorted[i];
+			}
+			for (int i = mid; i < unsorted.length; i++) {
+				secondHalf[i - mid] = unsorted[i];
+			}
+
+			return merge(mergeSort(firstHalf), mergeSort(secondHalf));
+
+		}
+	}
+
+	public static int[] merge(int[] left, int[] right) {
+
+		int[] res = new int[left.length + right.length];
+		int leftPos = 0;
+		int rightPos = 0;
+
+		for (int i = 0; i < res.length; i++) {
+			if (leftPos < left.length && rightPos < right.length
+					&& left[leftPos] < right[rightPos]) {// swap this lines
+															// comparison to
+															// change ascending
+															// to descending
+				res[i] = left[leftPos];
+				leftPos++;
+			} else if (leftPos < left.length && rightPos < right.length
+					&& left[leftPos] > right[rightPos]) { // swap this lines
+															// comparison to
+															// change ascending
+															// to descending
+				res[i] = right[rightPos];
+				rightPos++;
+			} else if (leftPos < left.length && rightPos < right.length
+					&& left[leftPos] == right[rightPos]) {
+				res[i] = right[rightPos];
+				rightPos++;
+			} else if (leftPos < left.length && rightPos == right.length) {
+				res[i] = left[leftPos];
+				leftPos++;
+			} else if (rightPos < right.length && leftPos == left.length) {
+				res[i] = right[rightPos];
+				rightPos++;
+			}
+		}
+
+		return res;
+	}
